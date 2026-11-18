@@ -1,0 +1,52 @@
+{
+  "model_file": "final_model.joblib",
+  "model_name": "LightGBM (Optuna-tuned)",
+  "features": [
+    "dist",
+    "dist_rank",
+    "dist_minus_min",
+    "dist_ratio",
+    "n_cand",
+    "t_proj",
+    "t_raw_clip",
+    "at_endpoint",
+    "head_diff",
+    "head_cos",
+    "speed",
+    "head_reliable",
+    "arc_len_log",
+    "from_in_deg",
+    "to_out_deg",
+    "has_twin",
+    "ctx_dist_mean",
+    "ctx_dist_max",
+    "ctx_within20",
+    "ctx_head_diff",
+    "ctx_dist_rel",
+    "dt_prev",
+    "gap_flag"
+  ],
+  "cand_radius_m": 60.0,
+  "cand_k_max": 10,
+  "ctx_win": 3,
+  "gap_s": 10.0,
+  "hmm_params": {
+    "beta": 5.0,
+    "alpha": 2.0,
+    "sigma": 8.0,
+    "emission": "classifier",
+    "max_gap_s": 180.0,
+    "backward_tol_m": 15.0,
+    "eps": 1e-06
+  },
+  "lightgbm_params": {
+    "n_estimators": 450,
+    "learning_rate": 0.04914710957713058,
+    "num_leaves": 68,
+    "min_child_samples": 21,
+    "subsample": 0.8510505993944915,
+    "colsample_bytree": 0.9805620915213739,
+    "reg_lambda": 0.002346552914351087,
+    "reg_alpha": 0.0015780772394295103
+  }
+}
