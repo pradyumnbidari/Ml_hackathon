@@ -1,0 +1,47 @@
+==== HistGradientBoosting
+  fold 0: F1m=0.9210 top1=0.8672 ll=0.1030 (8s)
+  fold 1: F1m=0.9479 top1=0.9178 ll=0.0648 (9s)
+  fold 2: F1m=0.9598 top1=0.9373 ll=0.0558 (9s)
+  fold 3: F1m=0.9398 top1=0.8955 ll=0.0790 (13s)
+  fold 4: F1m=0.9270 top1=0.8791 ll=0.0799 (8s)
+  TEST: F1m=0.9437 top1=0.9089 ll=0.0704 cont=0.9463 train=11s inf=0.19s
+==== LightGBM
+  fold 0: F1m=0.9199 top1=0.8680 ll=0.1099 (22s)
+  fold 1: F1m=0.9491 top1=0.9197 ll=0.0630 (22s)
+  fold 2: F1m=0.9618 top1=0.9388 ll=0.0530 (22s)
+  fold 3: F1m=0.9405 top1=0.8974 ll=0.0786 (22s)
+  fold 4: F1m=0.9311 top1=0.8876 ll=0.0754 (22s)
+  TEST: F1m=0.9441 top1=0.9082 ll=0.0698 cont=0.9495 train=27s inf=1.55s
+==== RandomForest
+  fold 0: F1m=0.9207 top1=0.8655 ll=0.0982 (83s)
+  fold 1: F1m=0.9452 top1=0.9167 ll=0.0663 (81s)
+  fold 2: F1m=0.9609 top1=0.9363 ll=0.0524 (85s)
+  fold 3: F1m=0.9387 top1=0.8917 ll=0.0783 (83s)
+  fold 4: F1m=0.9262 top1=0.8755 ll=0.0803 (83s)
+  TEST: F1m=0.9382 top1=0.8946 ll=0.0719 cont=0.9426 train=118s inf=0.73s
+==== KNN
+  fold 0: F1m=0.9113 top1=0.8592 ll=0.1884 (0s)
+  fold 1: F1m=0.9321 top1=0.8931 ll=0.1173 (0s)
+  fold 2: F1m=0.9505 top1=0.9278 ll=0.0931 (0s)
+  fold 3: F1m=0.9326 top1=0.8818 ll=0.1341 (0s)
+  fold 4: F1m=0.9138 top1=0.8585 ll=0.1374 (0s)
+  TEST: F1m=0.9266 top1=0.8813 ll=0.1199 cont=0.9312 train=0s inf=50.65s
+==== MLP
+/usr/local/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:785: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (25) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  fold 0: F1m=0.9182 top1=0.8713 ll=0.1090 (39s)
+/usr/local/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:785: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (25) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  fold 1: F1m=0.9473 top1=0.9196 ll=0.0668 (39s)
+/usr/local/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:785: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (25) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  fold 2: F1m=0.9592 top1=0.9396 ll=0.0546 (39s)
+/usr/local/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:785: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (25) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  fold 3: F1m=0.9348 top1=0.8884 ll=0.0911 (40s)
+/usr/local/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:785: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (25) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  fold 4: F1m=0.9240 top1=0.8808 ll=0.0826 (39s)
+/usr/local/lib/python3.13/site-packages/sklearn/neural_network/_multilayer_perceptron.py:785: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (25) reached and the optimization hasn't converged yet.
+  warnings.warn(
+  TEST: F1m=0.9362 top1=0.8964 ll=0.0752 cont=0.9521 train=54s inf=0.11s
