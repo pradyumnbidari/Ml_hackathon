@@ -1,0 +1,22 @@
+{
+  "best_params": {
+    "n_estimators": 450,
+    "learning_rate": 0.04914710957713058,
+    "num_leaves": 68,
+    "min_child_samples": 21,
+    "subsample": 0.8510505993944915,
+    "colsample_bytree": 0.9805620915213739,
+    "reg_lambda": 0.002346552914351087,
+    "reg_alpha": 0.0015780772394295103
+  },
+  "best_cv_top1": 0.9019098021930025,
+  "n_trials": 60,
+  "objective": "mean 3-fold GroupKFold Top-1 accuracy (40% obs sample of TRAIN)",
+  "baseline_trial0_cv_top1": 0.9005814436106169,
+  "best_trial": 54,
+  "best_cv_f1_macro": 0.9394370619741172,
+  "best_cv_log_loss": 0.07712370857165196,
+  "baseline_cv_f1_macro": 0.9392333970920682,
+  "baseline_cv_log_loss": 0.07641124315493775,
+  "total_search_seconds": 2554.183764696121
+}
