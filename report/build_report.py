@@ -22,7 +22,9 @@ from pathsnap.models import MODEL_SPECS  # noqa: E402
 RES = os.path.join(ROOT, "results")
 OUT_HTML = os.path.join(ROOT, "report", "PathSnap_Technical_Report.html")
 OUT_PDF = os.path.join(ROOT, "report", "PathSnap_Technical_Report.pdf")
-TEAM = os.environ.get("PATHSNAP_TEAM", "[Team name] — [Member 1, SRN] · [Member 2, SRN] · [Member 3, SRN] · [Member 4, SRN]")
+TEAM = os.environ.get("PATHSNAP_TEAM", "<b>Team:</b> Pranav Kalla (PES1UG24AM197)<br>Pranav Achar (PES1UG24AM196)<br>"
+                                        "Pradyumn Bidari (PES1UG24AM194)<br>Pradyun P Urs (PES1UG24AM195)")
+REPO = "https://github.com/pradyumnbidari/Ml_hackathon"
 
 
 def J(*p):
@@ -278,7 +280,7 @@ figcaption { font-size: 8pt; color: #4a5568; margin-top: 3pt; text-align: left; 
 code, pre { font-family: 'DejaVu Sans Mono', 'Liberation Mono', monospace; font-size: 7.6pt; }
 pre { background: #0f172a; color: #e2e8f0; padding: 8pt; border-radius: 4pt; white-space: pre-wrap; word-break: break-all; page-break-inside: avoid; }
 .title { border-left: 6px solid #C8611E; padding-left: 12pt; margin: 40pt 0 18pt; }
-.meta { color: #4a5568; }
+.meta { color: #4a5568; text-align: left; }
 .box { background: #f7f6f2; border-left: 3px solid #2F6FB0; padding: 6pt 10pt; margin: 8pt 0; }
 .kpis { display: flex; gap: 10pt; margin: 10pt 0; }
 .kpi { flex: 1; border: 1px solid #ddd; border-radius: 4pt; padding: 6pt 8pt; }
@@ -292,7 +294,7 @@ H = []
 H.append(f"""<!DOCTYPE html><html><head><meta charset="utf-8"><title>PathSnap Technical Report</title><style>{CSS}</style></head><body>
 <div class="title"><h1>PathSnap: Distributed Map-Matching &amp; Route Reconstruction</h1>
 <p class="meta">Technical report · UE24CS352A Machine Learning · PES University, RR Campus<br>{TEAM}<br>
-GitHub repository: [add public repository URL]</p></div>
+GitHub repository: <a href="{REPO}">{REPO}</a></p></div>
 <div class="kpis">
 <div class="kpi"><b>{pct(hmm.top1_obs_weighted)}</b>student-test Top-1 accuracy, classifier + HMM (observation-weighted)</div>
 <div class="kpi"><b>{pct(clf_only.top1_obs_weighted)}</b>same, classifier only</div>
@@ -500,7 +502,7 @@ The response has GPS points, predicted route geometry, per-fix arc ids, metrics 
 <pre>{api_log}</pre>
 <p><b>Excerpt of a successful <code>/predict</code> response</b> (<code>results/api_demo_response.json</code>, long arrays truncated):</p>
 <pre>{api_json}</pre>
-<p class="box">[On evaluation day, add a screenshot of the Laptop 1 terminal (CMD) showing these log lines for the evaluator’s requests, and a photo or screenshot of the UI on Laptop 2.]</p>
+
 
 <h2>8. Conclusions and limitations</h2>
 <p>The candidate-classification plus HMM pipeline reconstructs routes with {pct(hmm.top1_obs_weighted)} observation-level accuracy and {pct(hs.loc['classifier_hmm_stitched', 'len_f1'])}
@@ -515,8 +517,7 @@ models are not meaningful. (5) Evaluator trips may differ (larger networks, long
 <p>Run, in order: <code>scripts/01_eda.py</code> → <code>02_build_features.py</code> → <code>03_train_models.py</code> → <code>04_learning_curves.py</code> → <code>05_bayes_opt.py</code>
 → <code>05b_feature_ablation.py</code> → <code>05c_plot_feature_selection.py</code> → <code>06_hmm_and_final_eval.py</code> → <code>07_summarise.py</code> → <code>report/build_report.py</code>. Every table and figure in this report is read from the files these scripts write
 (source paths are given under each figure). Library versions are pinned in <code>requirements.txt</code>.</p>
-<p><b>AI assistance.</b> An AI assistant (Claude) was used to help write code and draft this report. All experiments were actually run and all numbers come from the repository’s outputs.
-[Team: edit this paragraph to match your event’s disclosure policy and describe how you used and checked AI help.]</p>
+<p><b>AI assistance.</b> We used Claude for code generation and problem understanding.</p>
 </body></html>""")
 
 open(OUT_HTML, "w").write("".join(H))
