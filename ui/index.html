@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PathSnap — Evaluator Console</title>
+<!-- Leaflet 1.9.4 is bundled in ui/vendor so the UI does not depend on a CDN -->
+<link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+<script src="vendor/leaflet/leaflet.js"></script>
+<style>
+  :root { --ink:#1d2330; --muted:#6b7280; --line:#e5e7eb; --bg:#f6f7f9; --accent:#d62728; --gps:#1f4e9e; --ok:#1b9e3e; }
+  * { box-sizing:border-box; }
+  body { margin:0; font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif; color:var(--ink); background:var(--bg); }
+  header { display:flex; align-items:center; gap:16px; padding:12px 20px; background:#fff; border-bottom:1px solid var(--line); }
+  header h1 { font-size:18px; margin:0; letter-spacing:.2px; }
+  header .sub { color:var(--muted); font-size:12px; }
+  header .api { margin-left:auto; display:flex; gap:6px; align-items:center; font-size:12px; }
+  header input { width:230px; padding:5px 8px; border:1px solid var(--line); border-radius:6px; font:inherit; }
+  header button, .trip { cursor:pointer; }
+  .dot { width:9px; height:9px; border-radius:50%; background:#bbb; display:inline-block; }
+  .dot.ok { background:var(--ok); } .dot.bad { background:var(--accent); }
+  main { display:grid; grid-template-columns:260px 1fr 320px; height:calc(100vh - 57px); }
+  aside, section.panel { overflow:auto; padding:14px; }
+  aside { border-right:1px solid var(--line); background:#fff; }
+  section.panel { border-left:1px solid var(--line); background:#fff; }
+  h2 { font-size:12px; text-transform:uppercase; letter-spacing:.8px; color:var(--muted); margin:4px 0 10px; }
+  .trip { display:flex; justify-content:space-between; width:100%; text-align:left; padding:10px 12px; margin-bottom:6px;
+          border:1px solid var(--line); border-radius:8px; background:#fff; font:inherit; }
+  .trip:hover { border-color:#9ca3af; } .trip.active { border-color:var(--accent); box-shadow:0 0 0 2px #d6272822; }
+  .trip small { color:var(--muted); }
+  #map { height:100%; }
+  .kpi { border:1px solid var(--line); border-radius:8px; padding:10px 12px; margin-bottom:8px; }
+  .kpi .v { font-size:24px; font-weight:650; }
+  .kpi .l { color:var(--muted); font-size:12px; }
+  .row { display:flex; gap:8px; } .row .kpi { flex:1; }
+  .delta { font-size:12px; color:var(--ok); }
+  table { width:100%; border-collapse:collapse; font-size:12px; }
+  td { padding:4px 0; border-bottom:1px solid var(--line); } td:last-child { text-align:right; font-variant-numeric:tabular-nums; }
+  .legend { position:absolute; z-index:500; bottom:18px; left:18px; background:#fff; padding:8px 10px; border-radius:8px;
+            border:1px solid var(--line); font-size:12px; }
+  .sw { display:inline-block; width:18px; height:4px; vertical-align:middle; margin-right:4px; }
+  .status { font-size:12px; color:var(--muted); margin-top:8px; white-space:pre-wrap; }
+  .spinner { display:none; } .busy .spinner { display:inline-block; }
+  .center { position:relative; }
+  .overlay { position:absolute; inset:0; display:none; align-items:center; justify-content:center; background:#ffffff99; z-index:600; font-size:15px; }
+  .busy .overlay { display:flex; }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>PathSnap — Map-Matching Evaluator</h1>
+    <div class="sub">Select a reserved trip. The trip ID is sent to the API, which runs the full pipeline and scores it server-side.</div>
+  </div>
+  <div class="api">
+    <span class="dot" id="apiDot"></span>
+    API <input id="apiUrl" placeholder="http://<laptop1-ip>:8000">
+    <button id="connect">Connect</button>
+  </div>
+</header>
+<main>
+  <aside>
+    <h2>Evaluation trips</h2>
+    <div id="trips"><div class="status">Enter the API address and press Connect.</div></div>
+  </aside>
+  <div class="center" id="center">
+    <div id="map"></div>
+    <div class="overlay">Running candidate generation → classifier → Viterbi on Laptop 1…</div>
+    <div class="legend">
+      <div><span class="sw" style="background:var(--gps);height:8px;width:8px;border-radius:50%"></span>Raw GPS observations</div>
+      <div><span class="sw" style="background:var(--accent)"></span>Predicted route (classifier + HMM)</div>
+    </div>
+  </div>
+  <section class="panel">
+    <h2>Results</h2>
+    <div id="results"><div class="status">No trip evaluated yet.</div></div>
+  </section>
+</main>
+<script>
+const $ = s => document.querySelector(s);
+const params = new URLSearchParams(location.search);
+let API = params.get("api") || (() => { try { return localStorage.getItem("pathsnap_api"); } catch (e) { return null; } })()
+          || `http://${location.hostname || "localhost"}:8000`;
+$("#apiUrl").value = API;
+
+const map = L.map("map", { zoomControl: true }).setView([20, 0], 2);
+L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+  { attribution: "&copy; OpenStreetMap &copy; CARTO", maxZoom: 20 }).addTo(map);
+let layers = L.layerGroup().addTo(map);
+
+const pct = v => v == null ? "N/A" : (100 * v).toFixed(2) + "%";
+
+async function connect() {
+  API = $("#apiUrl").value.replace(/\/$/, "");
+  try { localStorage.setItem("pathsnap_api", API); } catch (e) {}
+  $("#apiDot").className = "dot";
+  try {
+    const h = await (await fetch(API + "/health")).json();
+    $("#apiDot").className = "dot ok";
+    const t = await (await fetch(API + "/trips")).json();
+    const box = $("#trips"); box.innerHTML = "";
+    t.trips.forEach(tr => {
+      const b = document.createElement("button");
+      b.className = "trip"; b.dataset.id = tr.trip_id;
+      b.innerHTML = `<span><b>Trip ${tr.trip_id}</b></span><small>${tr.n_observations.toLocaleString()} GPS pts</small>`;
+      b.onclick = () => run(tr.trip_id, b);
+      box.appendChild(b);
+    });
+    box.insertAdjacentHTML("beforeend", `<div class="status">${t.trips.length} trips · model: ${h.model}</div>`);
+  } catch (e) {
+    $("#apiDot").className = "dot bad";
+    $("#trips").innerHTML = `<div class="status">Could not reach ${API}\n${e}</div>`;
+  }
+}
+
+async function run(id, btn) {
+  document.querySelectorAll(".trip").forEach(x => x.classList.remove("active"));
+  btn.classList.add("active");
+  $("#center").classList.add("busy");
+  $("#results").innerHTML = `<div class="status">Request sent for trip ${id}…</div>`;
+  const t0 = performance.now();
+  try {
+    const r = await fetch(API + "/predict", { method: "POST", headers: { "Content-Type": "application/json" },
+                                              body: JSON.stringify({ trip_id: id }) });
+    if (!r.ok) throw new Error(await r.text());
+    const d = await r.json();
+    draw(d); show(d, performance.now() - t0);
+  } catch (e) {
+    $("#results").innerHTML = `<div class="status">Error: ${e}</div>`;
+  } finally { $("#center").classList.remove("busy"); }
+}
+
+function draw(d) {
+  layers.clearLayers();
+  const pts = d.gps_points;
+  pts.forEach(p => L.circleMarker(p, { radius: 2, color: "#1f4e9e", weight: 0, fillOpacity: .8 }).addTo(layers));
+  d.predicted_route.forEach(seg => L.polyline(seg, { color: "#d62728", weight: 4, opacity: .9 }).addTo(layers));
+  L.marker(pts[0], { title: "start" }).addTo(layers).bindTooltip("Start");
+  L.marker(pts[pts.length - 1], { title: "end" }).addTo(layers).bindTooltip("End");
+  map.fitBounds(L.latLngBounds(pts), { padding: [20, 20] });
+}
+
+function show(d, ms) {
+  const m = d.metrics, gain = m.top1_accuracy_hmm - m.top1_accuracy_classifier_only;
+  $("#results").innerHTML = `
+    <div class="kpi"><div class="l">Observation-level Top-1 accuracy (classifier + HMM)</div>
+      <div class="v">${pct(m.top1_accuracy_hmm)}</div>
+      <div class="delta">${gain >= 0 ? "+" : ""}${(100 * gain).toFixed(2)} pts vs classifier-only (${pct(m.top1_accuracy_classifier_only)})</div></div>
+    <div class="row">
+      <div class="kpi"><div class="l">Route F1 (length)</div><div class="v" style="font-size:19px">${pct(m.route_len_f1)}</div></div>
+      <div class="kpi"><div class="l">Continuity</div><div class="v" style="font-size:19px">${pct(m.continuity_hmm)}</div></div>
+    </div>
+    <h2 style="margin-top:14px">Details — trip ${d.trip_id}</h2>
+    <table>
+      <tr><td>GPS observations</td><td>${d.n_observations.toLocaleString()}</td></tr>
+      <tr><td>Scored observations</td><td>${m.n_scored_observations.toLocaleString()}</td></tr>
+      <tr><td>Route precision / recall (length)</td><td>${pct(m.route_len_precision)} / ${pct(m.route_len_recall)}</td></tr>
+      <tr><td>Route arc-set F1</td><td>${pct(m.route_arc_f1)}</td></tr>
+      <tr><td>Continuity, classifier-only</td><td>${pct(m.continuity_classifier_only)}</td></tr>
+      <tr><td>Candidate miss rate</td><td>${pct(m.candidate_miss_rate)}</td></tr>
+      <tr><td>HMM chain breaks</td><td>${d.hmm_info.breaks}</td></tr>
+      <tr><td>Predicted route arcs</td><td>${d.predicted_route_arc_ids.length}</td></tr>
+      <tr><td>Server pipeline time</td><td>${d.timings_s.total_s.toFixed(2)} s</td></tr>
+      <tr><td>&nbsp;&nbsp;features / classifier / Viterbi</td><td>${d.timings_s.features_s.toFixed(2)} / ${d.timings_s.classifier_s.toFixed(2)} / ${d.timings_s.viterbi_s.toFixed(2)} s</td></tr>
+      <tr><td>Round trip (UI)</td><td>${(ms / 1000).toFixed(2)} s</td></tr>
+      <tr><td>Model</td><td>${d.model}</td></tr>
+    </table>
+    <div class="status">Accuracy is computed on Laptop 1 against its internal reference data; reference routes are never sent to this UI.</div>`;
+}
+
+$("#connect").onclick = connect;
+connect();
+</script>
+</body>
+</html>

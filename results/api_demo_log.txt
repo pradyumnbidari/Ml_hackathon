@@ -1,0 +1,22 @@
+07:44:43 | INFO | Loaded model: LightGBM (Optuna-tuned) | HMM params: {'beta': 5.0, 'alpha': 2.0, 'sigma': 8.0, 'emission': 'classifier', 'max_gap_s': 180.0, 'backward_tol_m': 15.0, 'eps': 1e-06}
+07:44:43 | INFO | Evaluation trips folder: data/raw/student_test
+07:44:48 | INFO | [08ebf8] <-- GET /health from 127.0.0.1
+07:44:48 | INFO | [08ebf8] --> 200 in 2 ms
+07:44:48 | INFO | [a3f791] <-- POST /predict from 127.0.0.1
+07:44:48 | INFO | PREDICT trip=00000077 : running pipeline (candidates -> classifier -> Viterbi)
+07:44:49 | INFO | PREDICT trip=00000077 : 3911 obs, 34397 candidate rows, HMM breaks=0, route arcs=388, 1.46s
+07:44:50 | INFO | EVAL    trip=00000077 : Top-1 classifier-only=0.8095 | classifier+HMM=0.8520 | route F1(len)=0.9774
+07:44:50 | INFO | [a3f791] --> 200 in 1609 ms
+07:44:55 | INFO | [b7b4d2] <-- GET /health from 127.0.0.1
+07:44:55 | INFO | [b7b4d2] --> 200 in 4 ms
+07:44:55 | INFO | [798a40] <-- GET /trips from 127.0.0.1
+07:44:55 | INFO | [798a40] --> 200 in 3 ms
+07:44:56 | INFO | [0a7f3e] <-- OPTIONS /predict from 127.0.0.1
+07:44:56 | INFO | [0a7f3e] --> 200 in 0 ms
+07:44:56 | INFO | [36a497] <-- POST /predict from 127.0.0.1
+07:44:56 | INFO | PREDICT trip=00000077 : running pipeline (candidates -> classifier -> Viterbi)
+07:44:57 | INFO | PREDICT trip=00000077 : 3911 obs, 34397 candidate rows, HMM breaks=0, route arcs=388, 1.42s
+07:44:57 | INFO | EVAL    trip=00000077 : Top-1 classifier-only=0.8095 | classifier+HMM=0.8520 | route F1(len)=0.9774
+07:44:57 | INFO | [36a497] --> 200 in 1575 ms
+07:44:59 | INFO | [b0cb0d] <-- POST /predict from 127.0.0.1
+07:44:59 | INFO | PREDICT trip=00000000 : running pipeline (candidates -> classifier -> Viterbi)

@@ -1,0 +1,12 @@
+{
+  "trip_id": "00000077",
+  "model": "LightGBM (Optuna-tuned)",
+  "n_observations": 3911,
+  "gps_points": [[61.699462, 50.803215], [61.699418, 50.803266], "... 3909 more"],
+  "predicted_route": [[[61.69979, 50.804769], [61.69961, 50.80276], "... 387 more points"]],
+  "predicted_route_arc_ids": [8348, 8345, "... 386 more"],
+  "per_observation_arc": [8348, 8348, "... 3909 more"],
+  "hmm_info": {"breaks": 0, "segments": 1, "unfilled_holes": 0},
+  "timings_s": {"preprocess_s": 0.167, "features_s": 0.067, "classifier_s": 0.421, "viterbi_s": 0.801, "total_s": 1.465},
+  "metrics": {"top1_accuracy_hmm": 0.852, "top1_accuracy_classifier_only": 0.8095, "continuity_hmm": 1.0, "continuity_classifier_only": 0.9995, "route_len_precision": 0.9557, "route_len_recall": 1.0, "route_len_f1": 0.9774, "route_arc_f1": 0.952, "candidate_miss_rate": 0.0008, "n_scored_observations": 3911}
+}

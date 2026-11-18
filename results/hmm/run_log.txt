@@ -1,0 +1,66 @@
+OOF fold {'fold': 0, 'f1_macro': 0.9227207790162528, 'log_loss': 0.10775561762137746, 'top1': 0.8714987714987715, 'train_time_s': 29.129242658615112}
+OOF fold {'fold': 1, 'f1_macro': 0.9494380465363006, 'log_loss': 0.062303131203311546, 'top1': 0.9189939387073018, 'train_time_s': 27.968749523162842}
+OOF fold {'fold': 2, 'f1_macro': 0.961964798793034, 'log_loss': 0.050175979317301236, 'top1': 0.9400360947779007, 'train_time_s': 28.190932750701904}
+OOF fold {'fold': 3, 'f1_macro': 0.9410994487233472, 'log_loss': 0.07514123794410751, 'top1': 0.8972848728630943, 'train_time_s': 28.63217067718506}
+OOF fold {'fold': 4, 'f1_macro': 0.9323562430985569, 'log_loss': 0.07474924611798629, 'top1': 0.889998789199661, 'train_time_s': 27.44414234161377}
+                                           0                 1
+model                     LightGBM (untuned)  LightGBM (tuned)
+cv_f1_macro                         0.940476          0.941516
+cv_top1                             0.902296          0.903562
+cv_log_loss                         0.076005          0.074025
+test_top1                           0.908169          0.911828
+test_f1_macro                       0.944082          0.945006
+test_log_loss                       0.069759           0.06651
+inference_s_student_test            1.522913          1.714565
+n_trees                                  400               450
+{'beta': 3, 'alpha': 0.5, 'sigma': 8.0, 'emission': 'classifier', 'max_gap_s': 180.0, 'backward_tol_m': 15.0, 'eps': 1e-06, 'train_top1_mean': 0.9294302811048202, 'seconds': 11.086742877960205}
+{'beta': 5, 'alpha': 0.5, 'sigma': 8.0, 'emission': 'classifier', 'max_gap_s': 180.0, 'backward_tol_m': 15.0, 'eps': 1e-06, 'train_top1_mean': 0.9312526465208305, 'seconds': 6.883273124694824}
+{'beta': 10, 'alpha': 0.5, 'sigma': 8.0, 'emission': 'classifier', 'max_gap_s': 180.0, 'backward_tol_m': 15.0, 'eps': 1e-06, 'train_top1_mean': 0.9331451826323958, 'seconds': 6.768093109130859}
+{'beta': 20, 'alpha': 0.5, 'sigma': 8.0, 'emission': 'classifier', 'max_gap_s': 180.0, 'backward_tol_m': 15.0, 'eps': 1e-06, 'train_top1_mean': 0.9332941157081576, 'seconds': 6.578960657119751}
+{'beta': 40, 'alpha': 0.5, 'sigma': 8.0, 'emission': 'classifier', 'max_gap_s': 180.0, 'backward_tol_m': 15.0, 'eps': 1e-06, 'train_top1_mean': 0.9298965718464461, 'seconds': 6.546931982040405}
+{'beta': 3, 'alpha': 1.0, 'sigma': 8.0, 'emission': 'classifier', 'max_gap_s': 180.0, 'backward_tol_m': 15.0, 'eps': 1e-06, 'train_top1_mean': 0.9317153762264947, 'seconds': 8.506533861160278}
+{'beta': 5, 'alpha': 1.0, 'sigma': 8.0, 'emission': 'classifier', 'max_gap_s': 180.0, 'backward_tol_m': 15.0, 'eps': 1e-06, 'train_top1_mean': 0.9331451826323958, 'seconds': 8.108557939529419}
+{'beta': 10, 'alpha': 1.0, 'sigma': 8.0, 'emission': 'classifier', 'max_gap_s': 180.0, 'backward_tol_m': 15.0, 'eps': 1e-06, 'train_top1_mean': 0.9332941157081576, 'seconds': 7.3125221729278564}
+{'beta': 20, 'alpha': 1.0, 'sigma': 8.0, 'emission': 'classifier', 'max_gap_s': 180.0, 'backward_tol_m': 15.0, 'eps': 1e-06, 'train_top1_mean': 0.9298965718464461, 'seconds': 6.84396767616272}
+{'beta': 40, 'alpha': 1.0, 'sigma': 8.0, 'emission': 'classifier', 'max_gap_s': 180.0, 'backward_tol_m': 15.0, 'eps': 1e-06, 'train_top1_mean': 0.9277780150287953, 'seconds': 6.634120464324951}
+{'beta': 3, 'alpha': 2.0, 'sigma': 8.0, 'emission': 'classifier', 'max_gap_s': 180.0, 'backward_tol_m': 15.0, 'eps': 1e-06, 'train_top1_mean': 0.9329969117539196, 'seconds': 6.966101884841919}
+{'beta': 5, 'alpha': 2.0, 'sigma': 8.0, 'emission': 'classifier', 'max_gap_s': 180.0, 'backward_tol_m': 15.0, 'eps': 1e-06, 'train_top1_mean': 0.9332941157081576, 'seconds': 6.815625905990601}
+{'beta': 10, 'alpha': 2.0, 'sigma': 8.0, 'emission': 'classifier', 'max_gap_s': 180.0, 'backward_tol_m': 15.0, 'eps': 1e-06, 'train_top1_mean': 0.9298965718464461, 'seconds': 6.692394971847534}
+{'beta': 20, 'alpha': 2.0, 'sigma': 8.0, 'emission': 'classifier', 'max_gap_s': 180.0, 'backward_tol_m': 15.0, 'eps': 1e-06, 'train_top1_mean': 0.9277780150287953, 'seconds': 7.133599758148193}
+{'beta': 40, 'alpha': 2.0, 'sigma': 8.0, 'emission': 'classifier', 'max_gap_s': 180.0, 'backward_tol_m': 15.0, 'eps': 1e-06, 'train_top1_mean': 0.9262729957376917, 'seconds': 7.92483377456665}
+{'beta': 3, 'alpha': 1.0, 'sigma': 5, 'emission': 'gaussian', 'max_gap_s': 180.0, 'backward_tol_m': 15.0, 'eps': 1e-06, 'train_top1_mean': 0.915535004567584, 'seconds': 7.458266973495483}
+{'beta': 5, 'alpha': 1.0, 'sigma': 5, 'emission': 'gaussian', 'max_gap_s': 180.0, 'backward_tol_m': 15.0, 'eps': 1e-06, 'train_top1_mean': 0.9157219843097906, 'seconds': 6.129060745239258}
+{'beta': 10, 'alpha': 1.0, 'sigma': 5, 'emission': 'gaussian', 'max_gap_s': 180.0, 'backward_tol_m': 15.0, 'eps': 1e-06, 'train_top1_mean': 0.9162967480451173, 'seconds': 6.305060148239136}
+{'beta': 20, 'alpha': 1.0, 'sigma': 5, 'emission': 'gaussian', 'max_gap_s': 180.0, 'backward_tol_m': 15.0, 'eps': 1e-06, 'train_top1_mean': 0.9117661951659447, 'seconds': 6.081727981567383}
+{'beta': 40, 'alpha': 1.0, 'sigma': 5, 'emission': 'gaussian', 'max_gap_s': 180.0, 'backward_tol_m': 15.0, 'eps': 1e-06, 'train_top1_mean': 0.9055599545887805, 'seconds': 6.065966606140137}
+{'beta': 3, 'alpha': 1.0, 'sigma': 10, 'emission': 'gaussian', 'max_gap_s': 180.0, 'backward_tol_m': 15.0, 'eps': 1e-06, 'train_top1_mean': 0.9065946123087562, 'seconds': 5.931351900100708}
+{'beta': 5, 'alpha': 1.0, 'sigma': 10, 'emission': 'gaussian', 'max_gap_s': 180.0, 'backward_tol_m': 15.0, 'eps': 1e-06, 'train_top1_mean': 0.9111359171100559, 'seconds': 5.888838052749634}
+{'beta': 10, 'alpha': 1.0, 'sigma': 10, 'emission': 'gaussian', 'max_gap_s': 180.0, 'backward_tol_m': 15.0, 'eps': 1e-06, 'train_top1_mean': 0.9143859887413197, 'seconds': 5.992123365402222}
+{'beta': 20, 'alpha': 1.0, 'sigma': 10, 'emission': 'gaussian', 'max_gap_s': 180.0, 'backward_tol_m': 15.0, 'eps': 1e-06, 'train_top1_mean': 0.9157219843097906, 'seconds': 5.542781114578247}
+{'beta': 40, 'alpha': 1.0, 'sigma': 10, 'emission': 'gaussian', 'max_gap_s': 180.0, 'backward_tol_m': 15.0, 'eps': 1e-06, 'train_top1_mean': 0.9162967480451173, 'seconds': 5.958864212036133}
+{'beta': 3, 'alpha': 1.0, 'sigma': 20, 'emission': 'gaussian', 'max_gap_s': 180.0, 'backward_tol_m': 15.0, 'eps': 1e-06, 'train_top1_mean': 0.8944500534181137, 'seconds': 6.239740371704102}
+{'beta': 5, 'alpha': 1.0, 'sigma': 20, 'emission': 'gaussian', 'max_gap_s': 180.0, 'backward_tol_m': 15.0, 'eps': 1e-06, 'train_top1_mean': 0.8967323702005393, 'seconds': 5.875276803970337}
+{'beta': 10, 'alpha': 1.0, 'sigma': 20, 'emission': 'gaussian', 'max_gap_s': 180.0, 'backward_tol_m': 15.0, 'eps': 1e-06, 'train_top1_mean': 0.9052165739202993, 'seconds': 5.818145275115967}
+{'beta': 20, 'alpha': 1.0, 'sigma': 20, 'emission': 'gaussian', 'max_gap_s': 180.0, 'backward_tol_m': 15.0, 'eps': 1e-06, 'train_top1_mean': 0.9111359171100559, 'seconds': 5.9143102169036865}
+{'beta': 40, 'alpha': 1.0, 'sigma': 20, 'emission': 'gaussian', 'max_gap_s': 180.0, 'backward_tol_m': 15.0, 'eps': 1e-06, 'train_top1_mean': 0.9143859887413197, 'seconds': 5.947803497314453}
+/usr/local/lib/python3.13/site-packages/folium/raster_layers.py:129: UserWarning: CartoDB tiles now require an API key. Please provide one to continue using the tiles. You can request the key at https://carto.com/basemaps/apikey/.
+  tiles = tiles.build_url(fill_subdomain=False, scale_factor="{r}")  # type: ignore
+00000000 {'classifier_only': 0.9561, 'gaussian_hmm': 0.9608, 'classifier_hmm': 0.966, 'classifier_hmm_stitched': nan}
+00000007 {'classifier_only': 0.9815, 'gaussian_hmm': 0.9417, 'classifier_hmm': 0.9675, 'classifier_hmm_stitched': nan}
+00000009 {'classifier_only': 0.8856, 'gaussian_hmm': 0.8694, 'classifier_hmm': 0.9218, 'classifier_hmm_stitched': nan}
+00000040 {'classifier_only': 0.9606, 'gaussian_hmm': 0.9766, 'classifier_hmm': 0.9756, 'classifier_hmm_stitched': nan}
+00000052 {'classifier_only': 0.9847, 'gaussian_hmm': 0.9809, 'classifier_hmm': 1.0, 'classifier_hmm_stitched': nan}
+00000056 {'classifier_only': 0.9275, 'gaussian_hmm': 0.9486, 'classifier_hmm': 0.9598, 'classifier_hmm_stitched': nan}
+00000065 {'classifier_only': 0.8672, 'gaussian_hmm': 0.849, 'classifier_hmm': 0.8867, 'classifier_hmm_stitched': nan}
+00000076 {'classifier_only': 0.9327, 'gaussian_hmm': 0.897, 'classifier_hmm': 0.9711, 'classifier_hmm_stitched': nan}
+00000077 {'classifier_only': 0.8095, 'gaussian_hmm': 0.7942, 'classifier_hmm': 0.852, 'classifier_hmm_stitched': nan}
+00000091 {'classifier_only': 0.9108, 'gaussian_hmm': 0.9245, 'classifier_hmm': 0.9508, 'classifier_hmm_stitched': nan}
+                             top1  ...  top1_obs_weighted
+method                             ...                   
+classifier_hmm           0.945135  ...           0.937626
+classifier_hmm_stitched       NaN  ...                NaN
+classifier_only          0.921619  ...           0.911850
+gaussian_hmm             0.914271  ...           0.909583
+
+[4 rows x 8 columns]
+exported artifacts
