@@ -1,0 +1,3 @@
+partition,trips,obs_total,obs_min,obs_median,obs_max,invalid,dup_ts,out_of_order,gaps_gt10s,nodes_median,arcs_median,route_arcs_median,km_median
+student_test,10,19160,262,1420.0,3958,0,0,0,27,6596.5,13145.0,250.0,14.733115044432019
+train,80,208417,361,1529.0,19313,0,0,0,590,9608.0,19526.5,280.0,14.295505655788308
